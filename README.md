@@ -119,9 +119,15 @@ this, the first "power user" cohort you discover is yourself.
 - [`schema.sql`](schema.sql) - the record store: accounts, contacts,
   identities, consents, suppression, touches, and the anonymous rollup, with
   the indexes that keep reads off the floor. No data, no keys.
+- [`docs/outreach-engine.md`](docs/outreach-engine.md) - the daily outreach
+  engine built on this store: architecture, a day in its life, the rails and
+  the incident behind each one, and the roadmap.
+- [`docs/outreach-engine-build-prompt.md`](docs/outreach-engine-build-prompt.md) -
+  the same engine as a phased spec for Claude Code or Cursor, plus the research
+  brief that fills it with contacts.
 
 ## What is not here
 
-The outreach machinery, sequences and cadences, anything resembling customer
-data, and the site's own configuration. The point of publishing this is the
+The letters themselves, the contact lists, anything resembling customer data,
+and the site's own configuration. The point of publishing this is the
 architecture, not the address book.
