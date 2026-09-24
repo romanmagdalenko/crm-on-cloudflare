@@ -269,7 +269,6 @@ stateDiagram-v2
 
 ```mermaid
 stateDiagram-v2
-  direction LR
   [*] --> T1: intake. Never touched, type and region match
   T1 --> T2: still sent after gap 1
   T2 --> T3: still sent after gap 2
@@ -307,7 +306,7 @@ flowchart TD
   C -->|"breadth: 60-300 rows"| E["Custom workflow<br/>one extract + one verify agent per stream"]
   D --> K["Facts for letters<br/>and the knowledge base"]
   E --> F["Merge and dedup in code"]
-  F --> G["Verify: literal match on a raw fetch<br/>10% spot-check, registry cross-check"]
+  F --> G["Verify: literal match on a raw fetch<br/>spot-check 1 row in 10, registry cross-check"]
   G --> H["DNS check: MX, then A<br/>dead domains suppressed"]
   H --> I["Import script<br/>idempotent SQL, git-ignored"]
   I --> J["Dry run on local SQLite, twice"]
