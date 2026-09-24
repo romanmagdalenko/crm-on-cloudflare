@@ -53,50 +53,44 @@ are versioned, tested and visible.
 ## 1. Architecture
 
 ```mermaid
-flowchart LR
-  subgraph RES["Research, upstream"]
-    R1["Coverage preflight:<br/>what we already hold"]
-    R2["Brief"]
-    R3["Deep research, or an<br/>extract + verify workflow"]
-    R4["Verify on the page,<br/>DNS check, dedup by hash"]
-    R5["Idempotent SQL import"]
-    R1 --> R2 --> R3 --> R4 --> R5
-  end
+flowchart TB
+  RES["Research<br/>brief, deep research or workflow,<br/>verify, DNS check, dedup, import"]
+  CAD["Nightly cadence 03:17<br/>intake, follow-ups, release"]
+  DB[("D1<br/>contacts, queue, touches<br/>suppression, send log")]
+  GRD["Export guard + renderer<br/>window, caps, order, canary"]
+  OBS["Preflight 03:45 and 08:30<br/>digest 10:15"]
+  TR["Apps Script senders x6<br/>3 consumer Gmail<br/>3 Workspace with SPF, DKIM, DMARC"]
+  RCP(["Recipient"])
+  GO["Site /go redirect"]
+  IH["Inbox harvester<br/>every 10 min"]
+  BH["Bounce harvester"]
+  OWN(["Owner"])
 
-  subgraph BRAIN["Brain: Cloudflare Worker + D1"]
-    DB[("D1<br/>accounts, contacts<br/>queue, touches<br/>suppression, send log")]
-    CAD["Nightly cadence<br/>intake, follow-ups, release"]
-    GRD["Export guard<br/>window, caps, order, canary"]
-    RND["Renderer<br/>per campaign and language"]
-    PRE["Preflight 03:45 and 08:30<br/>digest 10:15"]
-    CAD --> DB
-    DB --> GRD --> RND
-    PRE -.->|"dry run"| GRD
-  end
-
-  subgraph TR["Transport: Apps Script, one per mailbox"]
-    G["3 consumer Gmail"]
-    W["3 Workspace on own domain<br/>SPF, DKIM, DMARC"]
-  end
-
-  subgraph FB["Feedback"]
-    GO["Site /go redirect"]
-    IH["Inbox harvester<br/>every 10 min"]
-    BH["Bounce harvester"]
-  end
-
-  R5 --> DB
-  RND -->|"GET /queue.json<br/>09:00-10:14 UTC"| TR
-  TR -->|"POST /queue/ack"| DB
-  TR --> RCP(["Recipient"])
+  RES -->|"idempotent SQL"| DB
+  CAD --> DB
+  DB --> GRD
+  OBS -.->|"dry run"| GRD
+  GRD <-->|"GET /queue.json<br/>POST /queue/ack<br/>09:00-10:14 UTC"| TR
+  TR -->|"GmailApp"| RCP
   RCP -->|"click"| GO
   RCP -->|"reply or opt-out"| IH
   RCP -.->|"bounce"| BH
   GO -->|"touch clicked,<br/>identity stitched"| DB
   IH -->|"POST /inbound"| DB
   BH -->|"POST /bounce"| DB
-  PRE -->|"alerts via /outbox.json"| OWN(["Owner"])
+  OBS -->|"alerts, digest"| OWN
+
+  classDef research fill:#f3e8ff,stroke:#7e22ce,color:#3b0764
+  classDef brain fill:#e7f0ff,stroke:#3b5bdb,color:#1c2f6b
+  classDef transport fill:#fff3bf,stroke:#b08900,color:#5c4400
+  classDef feedback fill:#d8f3dc,stroke:#2d6a4f,color:#1b4332
+  class RES research
+  class CAD,DB,GRD,OBS brain
+  class TR transport
+  class GO,IH,BH feedback
 ```
+
+Purple is research, blue is the brain, yellow is transport, green is feedback.
 
 What the diagram does not show:
 
