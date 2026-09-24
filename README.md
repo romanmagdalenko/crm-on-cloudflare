@@ -122,6 +122,9 @@ this, the first "power user" cohort you discover is yourself.
 - [`docs/outreach-engine.md`](docs/outreach-engine.md) - the daily outreach
   engine built on this store: architecture, a day in its life, the rails and
   the incident behind each one, and the roadmap.
+- [`docs/outreach-engine-setup.md`](docs/outreach-engine-setup.md) - the
+  step-by-step setup in plain language: Google Workspace mailboxes (grant or
+  buy), DNS, warm-up, installing the senders, the pilot, and what it costs.
 - [`docs/outreach-engine-build-prompt.md`](docs/outreach-engine-build-prompt.md) -
   the same engine as a phased spec for Claude Code or Cursor, plus the research
   brief that fills it with contacts.
