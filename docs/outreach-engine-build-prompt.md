@@ -39,6 +39,9 @@ roadmap stages 11 to 13.
 
 **Both tools**
 
+- Do the non-code steps first: the mailboxes, DNS and warm-up in
+  [`outreach-engine-setup.md`](outreach-engine-setup.md), steps 1–5. The
+  warm-up takes about three weeks and runs while you build.
 - Fill in section 0 before starting.
 - Leave everything marked MUST as it is unless you have read the incident
   behind it.

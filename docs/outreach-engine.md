@@ -7,9 +7,28 @@ fully automated since August. It writes to public-sector bodies, universities,
 media and hotels in two countries and two languages, from six mailboxes, in a
 single send window every morning.
 
-This document gives the description and the roadmap. Its companion,
-[`outreach-engine-build-prompt.md`](outreach-engine-build-prompt.md), turns both
-into a phased spec to hand to Claude Code or Cursor.
+> **In plain words.**
+>
+> - **Every weekday morning, six of our mailboxes each send a small batch of
+>   personal letters:** tens, not thousands.
+> - **A small program on Cloudflare does the thinking.** It decides who gets
+>   which letter, writes it, and checks that it is safe to send. The mailboxes
+>   only press "send".
+> - **It stops when people react.** When someone clicks a link, replies,
+>   bounces or asks us to stop, the program notices and stops writing to them.
+> - **The owner hears about it every day.** A short report arrives every
+>   morning. If the morning is about to go wrong, a warning arrives in the
+>   night, while there is still time to fix it.
+> - **The lists come from research.** We build them with Claude, and every
+>   address is checked on its source page before it is used.
+
+This repository has three documents about the engine:
+
+| Document | For whom | What it is |
+|---|---|---|
+| **this one** | anyone who wants to understand the engine | how it works, why it is shaped this way, and the roadmap |
+| [`outreach-engine-setup.md`](outreach-engine-setup.md) | whoever sets it up | the practical roadmap in plain language: get the mailboxes, connect the domain, warm up, install, pilot, scale |
+| [`outreach-engine-build-prompt.md`](outreach-engine-build-prompt.md) | the developer | a phased spec to hand to Claude Code or Cursor |
 
 ## The shape in one sentence
 
@@ -424,6 +443,10 @@ Read the roadmap two ways. **As a build order:** stages 0–8 are the sequence i
 which to build an engine like this from nothing, placed so that each stage has
 the rails it needs before it runs. **As our status:** stages 9–13 are what our
 engine does not do yet.
+
+This is the engineering roadmap. For the practical, week-by-week setup (buying
+the mailboxes, DNS, warm-up, installing the scripts, the pilot), see
+[`outreach-engine-setup.md`](outreach-engine-setup.md).
 
 ```mermaid
 flowchart TB
